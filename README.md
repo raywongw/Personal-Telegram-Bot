@@ -21,5 +21,5 @@ kind note: This bot would only offers a mix of Cantonese and English for now, an
 ## Commands that I trying to add
 - /tarot 
   - 1 card, 5 cards version available, with the questions as input
-- rickroll
+- /rickroll
   - as what the command say
