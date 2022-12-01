@@ -1,6 +1,7 @@
 # Personal-Telegram-Bot
 a not-so-useful personal Telegram bot powered by telethon for me to do most of the things daily
-kind note: This bot would only offers a mix of Cantonese and English for now, and this readme will be updated in a beter format later
+
+kind note: This bot would only offers a mix of Cantonese and English for now, and this readme will be updated in a better format later
 
 ## Commands
 |Commadns|What they do|
@@ -18,7 +19,7 @@ kind note: This bot would only offers a mix of Cantonese and English for now, an
 |marksix|Gives 6 unique numbers from 1 to 49|
 |stock_us|return a US stock chart by URL|
 
-## Commands that I trying to add
+## Commands that are trying to add
 - /tarot 
   - 1 card, 5 cards version available, with the questions as input
 - /rickroll
