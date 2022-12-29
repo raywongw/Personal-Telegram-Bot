@@ -16,14 +16,14 @@ Version: 1.4.1
 '''
 load_dotenv()
 
-API_KEY = os.getenv("---Your Bot's API Key in .env---")
+API_KEY = os.getenv("API_KEY_MAIN")
 bot = telebot.TeleBot(API_KEY)
 
 
 
 # A new logger to send messages to a logging channel
 def logger(message, text):
-    bot.send_message(os.getenv("---Your Logging Channel in .env---"), f'''Bot activated: {bot.get_me().username} 
+    bot.send_message(os.getenv("LOG_CHANNEL"), f'''Bot activated: {bot.get_me().username} 
 Time: {datetime.datetime.now()}
 User: {message.from_user.first_name} {message.from_user.last_name}
 Username: {message.from_user.username}
@@ -76,8 +76,9 @@ def help(message):
 
 @bot.message_handler(commands = ['echo'])
 def echo(message):
-    bot.reply_to(message, message.text)
-    logger(message, message.text)
+    echo_txt = message.text.split()[1:]
+    bot.reply_to(message, " ".join(echo_txt))
+    logger(message, " ".join(echo_txt))
 
 
 def gen_fortune():
