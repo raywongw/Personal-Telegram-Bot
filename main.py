@@ -12,23 +12,26 @@ from telebot import types
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 '''
-Version: 1.4.0
+Version: 1.4.1
 '''
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY_MAIN")
+API_KEY = os.getenv("---Your Bot's API Key in .env---")
 bot = telebot.TeleBot(API_KEY)
+
 
 
 # A new logger to send messages to a logging channel
 def logger(message, text):
-    bot.send_message(os.getenv("LOG_CHANNEL"), f'''Bot activated: {bot.get_me().username} 
+    bot.send_message(os.getenv("---Your Logging Channel in .env---"), f'''Bot activated: {bot.get_me().username} 
 Time: {datetime.datetime.now()}
 User: {message.from_user.first_name} {message.from_user.last_name}
-Username and ID: {message.from_user.username}, {message.from_user.id}\n
+Username: {message.from_user.username}
+
 Chat type: {message.chat.type}
 Chat ID: {message.chat.id}
-Chat name: {message.chat.title if message.chat.type in ["group", "supergroup"] else "private"}\n
+Chat name: {message.chat.title if message.chat.type in ["group", "supergroup"] else "private"} 
+
 Command: {message.text}
 Reply string: {text}''')
 
@@ -36,6 +39,7 @@ Reply string: {text}''')
 help_str = '''start - Check if the bot is up
 ping - Same usage as /start
 help - List out brief usage of commands
+echo - Echo the message
 fortune - Get a fortune pick for a user
 block - Block the person
 toss - Give a random choices from user
@@ -44,7 +48,7 @@ rng - Gives a random number, default is 1-10
 random_phone - Gives a random phone
 random_gpa - Gives a random GPA
 marksix - Gives 6 unique numbers from 1 to 49
-stock_us - return a stock chart by URL'''
+stock_us - Return a stock chart by URL'''
 
 
 
@@ -69,6 +73,11 @@ def help(message):
     bot.reply_to(message, help_str)
     logger(message, help_str)
 
+
+@bot.message_handler(commands = ['echo'])
+def echo(message):
+    bot.reply_to(message, message.text)
+    logger(message, message.text)
 
 
 def gen_fortune():
@@ -123,12 +132,13 @@ def block(message):
     bot.reply_to(message, s)
     logger(message, s)
     
-# random choices
+
 @bot.message_handler(commands = ['toss'])
 def toss(message):
-    if message.text in ["/toss", "/toss@KoreanfisherBot", "/toss@koreanfisher_test_bot"]:
-        bot.reply_to(message, random.choices([1, 0]))
     text = message.text.split()[1:]
+
+    if len(text) == 0:
+        toss_reply = str(random.choice(["公","字"]))
 
     if len(text) == 1:
         toss_reply = "你淨係俾一個option想點？"
@@ -198,7 +208,7 @@ def marksix(message):
     logger(message, f"{ms}!")
 
 ############################################################
-# Stock
+
 @bot.message_handler(commands = ['stock_us'])
 def stock_us(message):
     stock_list = message.text.split()[1:]
